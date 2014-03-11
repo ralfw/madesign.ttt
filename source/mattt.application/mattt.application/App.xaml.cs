@@ -19,19 +19,20 @@ namespace mattt.application
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Build
             var ui = new Dialog();
-
             var moves = new Moves();
             var game = new Game();
             var mapper = new Mapper();
             var interactions = new Interactions(moves, game, mapper);
 
+            // Bind
             ui.ResetRequest += interactions.New_game;
             ui.MoveRequest += interactions.Move;
             interactions.OnGameChanged += ui.Diaplay;
 
+            // Run
             interactions.Start();
-
             ui.Show();
         }
     }

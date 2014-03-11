@@ -39,10 +39,9 @@ namespace mattt.application
 
         public void Move(int coordinate)
         {
-            _moves.Add(coordinate,
-                rawMoves =>
-                _game.Check_for_end_of_game(rawMoves,
-                    status => Determine_game_state(_moves.RawMoves, status),
+            _moves.Add(coordinate, 
+                rawMoves => _game.Check_for_end_of_game(rawMoves,
+                    endOfGameStatus => Determine_game_state(_moves.RawMoves, endOfGameStatus),
                     () => {
                         var status = _game.Change_player(_moves.RawMoves);
                         Determine_game_state(_moves.RawMoves, status);
