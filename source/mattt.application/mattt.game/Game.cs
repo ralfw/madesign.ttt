@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace mattt.game
 {
@@ -34,12 +35,13 @@ namespace mattt.game
 
         public Tuple<int,char>[] Add_players_to_moves(int[] moves)
         {
-            Tuple<int,char>[] result = new Tuple<int,char>[9];
+            var result = new List<Tuple<int,char>>();
+
             for (int i = 0; i < moves.Count(); i++)
             {
-                result[i] = Tuple.Create<int, char>(moves[i], i%2==0?'X':'O');
+                result.Add(Tuple.Create<int, char>(moves[i], i%2==0?'X':'O'));
             }
-            return result;
+            return result.ToArray();
         }
     }
 }
