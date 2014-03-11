@@ -37,7 +37,7 @@ namespace mattt.game
             Tuple<int,char>[] result = new Tuple<int,char>[9];
             for (int i = 0; i < moves.Count(); i++)
             {
-                result[i] = Tuple.Create<int, char>(i, i%2==0?'X':'O');
+                result[i] = Tuple.Create<int, char>(moves[i], i%2==0?'X':'O');
             }
             return result;
         }
