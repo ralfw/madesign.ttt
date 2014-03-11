@@ -24,14 +24,11 @@ namespace mattt.application
             var moves = new Moves();
             var game = new Game();
             var mapper = new Mapper();
-            var interactions = new Interactions(moves, game);
+            var interactions = new Interactions(moves, game, mapper);
 
             ui.ResetRequest += () => { };
             ui.MoveRequest += coord => { };
-            interactions.OnGameChanged += (playerMoves, status) => {
-                var gs = mapper.Map(playerMoves, status);
-                ui.Diaplay(gs);
-            };
+            interactions.OnGameChanged += ui.Diaplay;
 
             interactions.Start();
 
