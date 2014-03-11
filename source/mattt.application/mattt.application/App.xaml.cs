@@ -26,8 +26,8 @@ namespace mattt.application
             var mapper = new Mapper();
             var interactions = new Interactions(moves, game, mapper);
 
-            ui.ResetRequest += () => { };
-            ui.MoveRequest += coord => { };
+            ui.ResetRequest += interactions.New_game;
+            ui.MoveRequest += interactions.Move;
             interactions.OnGameChanged += ui.Diaplay;
 
             interactions.Start();
