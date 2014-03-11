@@ -1,8 +1,21 @@
 ﻿<Window x:Class="mattt.portal.Dialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Dialog" Height="300" Width="300">
-    <Grid>
+        Title="Dialog" Height="300" Width="300" x:Name="Self">
+    <DockPanel>
+        <TextBlock x:Name="uxStatus" DockPanel.Dock="Bottom"></TextBlock>
+        <Button x:Name="uxReset">New Game</Button>
+        <UniformGrid Columns="3" DockPanel.Dock="Top">
+            <Button x:Name="uxButton0"/>
+            <Button x:Name="uxButton1"/>
+            <Button x:Name="uxButton2"/>
+            <Button x:Name="uxButton3"/>
+            <Button x:Name="uxButton4"/>
+            <Button x:Name="uxButton5"/>
+            <Button x:Name="uxButton6"/>
+            <Button x:Name="uxButton7"/>
+            <Button x:Name="uxButton8"/>
+        </UniformGrid>
         
-    </Grid>
+    </DockPanel>
 </Window>
