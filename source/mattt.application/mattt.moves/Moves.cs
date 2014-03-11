@@ -12,14 +12,21 @@ namespace mattt.moves
 
         public void Add( int coordinate, Action<int[]> onSuccess, Action<string> onError )
         {
-            if ( _moves.Any( c => c == coordinate ) )
+            if ( coordinate < 0 || coordinate > 8 )
             {
-                onError( string.Format( "Koordinate {0} nicht erlaubt.", coordinate ) );
+                onError( string.Format( "Koordinate {0} darf nur in [0..8] sein", coordinate ) );
             }
             else
             {
-                _moves.Add( coordinate );
-                onSuccess( RawMoves );
+                if ( _moves.Any( c => c == coordinate ) )
+                {
+                    onError( string.Format( "Koordinate {0} nicht erlaubt.", coordinate ) );
+                }
+                else
+                {
+                    _moves.Add( coordinate );
+                    onSuccess( RawMoves );
+                }
             }
         }
 
