@@ -29,8 +29,8 @@ namespace mattt.portal
             uxButton4.Click += uxButton4_Click;
             uxButton5.Click += uxButton5_Click;
             uxButton6.Click += uxButton6_Click;
-            uxButton8.Click += uxButton7_Click;
-            uxButton0.Click += uxButton8_Click;
+            uxButton7.Click += uxButton7_Click;
+            uxButton8.Click += uxButton8_Click;
 
             uxReset.Click += new RoutedEventHandler( uxReset_Click );
 
@@ -88,15 +88,15 @@ namespace mattt.portal
         {
             uxStatus.Text = gameState.Status;
             uxButton0.Content = gameState.Board[0, 0];
-            uxButton1.Content = gameState.Board[0, 1];
-            uxButton2.Content = gameState.Board[0, 2];
+            uxButton1.Content = gameState.Board[1, 0];
+            uxButton2.Content = gameState.Board[2, 0];
             
-            uxButton3.Content = gameState.Board[1, 0];
+            uxButton3.Content = gameState.Board[0, 1];
             uxButton4.Content = gameState.Board[1, 1];
-            uxButton5.Content = gameState.Board[1, 2];
+            uxButton5.Content = gameState.Board[2, 1];
 
-            uxButton6.Content = gameState.Board[2, 0];
-            uxButton7.Content = gameState.Board[2, 1];
+            uxButton6.Content = gameState.Board[0, 2];
+            uxButton7.Content = gameState.Board[1, 2];
             uxButton8.Content = gameState.Board[2, 2];
         }
 
