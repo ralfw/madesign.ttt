@@ -8,18 +8,21 @@ namespace mattt.moves
 {
     public class Moves
     {
+        private List<int> _moves = new List<int>();
+
         public void Add(int coordinate, Action<int[]> onSuccess, Action<string> onError)
         {
-            throw new NotImplementedException();
+            _moves.Add(coordinate);
+            onSuccess(RawMoves);
         }
 
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            _moves.Clear();
         }
 
 
-        public int[] RawMoves {get{ throw new NotImplementedException();}}
+        public int[] RawMoves {get { return _moves.ToArray(); }}
     }
 }
