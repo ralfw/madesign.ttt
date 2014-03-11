@@ -10,10 +10,17 @@ namespace mattt.moves
     {
         private List<int> _moves = new List<int>();
 
-        public void Add(int coordinate, Action<int[]> onSuccess, Action<string> onError)
+        public void Add( int coordinate, Action<int[]> onSuccess, Action<string> onError )
         {
-            _moves.Add(coordinate);
-            onSuccess(RawMoves);
+            if ( _moves.Any( c => c == coordinate ) )
+            {
+                onError( string.Format( "Koordinate {0} nicht erlaubt.", coordinate ) );
+            }
+            else
+            {
+                _moves.Add( coordinate );
+                onSuccess( RawMoves );
+            }
         }
 
 
@@ -23,6 +30,6 @@ namespace mattt.moves
         }
 
 
-        public int[] RawMoves {get { return _moves.ToArray(); }}
+        public int[] RawMoves { get { return _moves.ToArray(); } }
     }
 }
