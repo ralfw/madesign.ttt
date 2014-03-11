@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using mattt.game;
+using mattt.mapping;
+using mattt.moves;
+using mattt.portal;
 
 namespace mattt.application
 {
@@ -13,5 +17,25 @@ namespace mattt.application
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var ui = new Dialog();
+
+            var moves = new Moves();
+            var game = new Game();
+            var mapper = new Mapper();
+            var interactions = new Interactions(moves, game);
+
+            ui.ResetRequest += () => { };
+            ui.MoveRequest += coord => { };
+            interactions.OnGameChanged += (playerMoves, status) => {
+                var gs = mapper.Map(playerMoves, status);
+                ui.Diaplay(gs);
+            };
+
+            interactions.Start();
+
+            ui.Show();
+        }
     }
 }

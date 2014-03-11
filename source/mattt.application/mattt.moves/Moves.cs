@@ -18,5 +18,8 @@ namespace mattt.moves
         {
             throw new NotImplementedException();
         }
+
+
+        public int[] RawMoves {get{ throw new NotImplementedException();}}
     }
 }
