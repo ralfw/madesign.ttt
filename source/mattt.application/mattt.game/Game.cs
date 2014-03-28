@@ -7,8 +7,13 @@ namespace mattt.game
 {
     public class Game
     {
-        public void Check_for_end_of_game(int[] moves, Action<string> onGameOver, Action onContinueGame)
+        public void Check_for_end_of_game(int[] moves, Action<string> onGameOver, Action onContinueGame, Action<int[], string> onUpdateUi)
         {
+            if (Configuration.Instance.IsGravityOn)
+            {
+                handleGravity(moves, onUpdateUi);
+            }
+
             var moveTuple = Add_players_to_moves(moves);
             var x = (from tuple in moveTuple where tuple.Item2 == 'X' select tuple.Item1).OrderBy(item => item).ToList();
             var o = (from tuple in moveTuple where tuple.Item2 == 'O' select tuple.Item1).OrderBy(item => item).ToList();
@@ -38,6 +43,30 @@ namespace mattt.game
                 else
                 {
                     onContinueGame();
+                }
+            }
+        }
+
+        private void handleGravity(int[] moves, Action<int[], string> onUpdateUi)
+        {
+            var maxIndex = Configuration.Instance.Dimension*Configuration.Instance.Dimension;
+            for (var i = 0; i < moves.Count(); i++)
+            {
+                var indexOfOneLower = moves[i] + Configuration.Instance.Dimension;
+                while (indexOfOneLower < maxIndex)
+                {
+                    if (!moves.Contains(indexOfOneLower))
+                    {
+                        moves[i] = moves[i] + Configuration.Instance.Dimension;
+                        onUpdateUi(moves, "Gravität schlägt zu.");
+                        //TODO: use threads to sleep here and update UI ("to animate drop").
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    indexOfOneLower = moves[i] + Configuration.Instance.Dimension;
+                    
                 }
             }
         }

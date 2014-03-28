@@ -6,7 +6,7 @@ namespace mattt.moves
 {
     public class Moves
     {
-        private readonly List<int> _moves = new List<int>();
+        private List<int> _moves = new List<int>();
 
         public void Add( int coordinate, Action<int[]> onSuccess, Action<string> onError )
         {
@@ -31,6 +31,10 @@ namespace mattt.moves
         }
 
 
-        public int[] RawMoves { get { return _moves.ToArray(); } }
+        public int[] RawMoves
+        {
+            get { return _moves.ToArray(); }
+            set { _moves = value.ToList(); }
+        }
     }
 }
