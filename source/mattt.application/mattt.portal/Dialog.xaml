@@ -5,16 +5,7 @@
     <DockPanel>
         <TextBlock x:Name="uxStatus" DockPanel.Dock="Bottom"></TextBlock>
         <Button x:Name="uxReset">New Game</Button>
-        <UniformGrid Columns="3" DockPanel.Dock="Top">
-            <Button x:Name="uxButton0"/>
-            <Button x:Name="uxButton1"/>
-            <Button x:Name="uxButton2"/>
-            <Button x:Name="uxButton3"/>
-            <Button x:Name="uxButton4"/>
-            <Button x:Name="uxButton5"/>
-            <Button x:Name="uxButton6"/>
-            <Button x:Name="uxButton7"/>
-            <Button x:Name="uxButton8"/>
+        <UniformGrid x:Name="PlayingField" DockPanel.Dock="Top">
         </UniformGrid>
         
     </DockPanel>

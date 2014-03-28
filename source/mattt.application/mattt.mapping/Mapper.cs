@@ -7,7 +7,7 @@ namespace mattt.mapping
     {
         public GameState Map(Tuple<int, char>[] playerMoves, string status)
         {
-            const int DIM = 3;
+            const int DIM = 4;
             var gs = new GameState {Board = new char[DIM,DIM], Status = status};
 
             foreach (var playerMove in playerMoves)

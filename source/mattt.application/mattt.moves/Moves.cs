@@ -10,8 +10,8 @@ namespace mattt.moves
 
         public void Add( int coordinate, Action<int[]> onSuccess, Action<string> onError )
         {
-            if ( coordinate < 0 || coordinate > 8 )
-                throw new ArgumentException("Coordinate must be 0..8, but was " + coordinate.ToString());
+            //if ( coordinate < 0 || coordinate > 8 )
+            //    throw new ArgumentException("Coordinate must be 0..8, but was " + coordinate.ToString());
            
             if ( _moves.Any( c => c == coordinate ) )
             {
