@@ -76,6 +76,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\matt.contract\matt.contract.csproj">
+      <Project>{56E8C42D-2A82-422A-851B-09D51781A508}</Project>
+      <Name>matt.contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mattt.data\mattt.data.csproj">
       <Project>{d53cf0e4-18e0-403f-8111-ba17b6cc1994}</Project>
       <Name>mattt.data</Name>

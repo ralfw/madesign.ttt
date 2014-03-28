@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
+using matt.contract;
 using mattt.data;
 
 namespace mattt.portal
@@ -11,7 +13,6 @@ namespace mattt.portal
     /// </summary>
     public partial class Dialog : Window
     {
-        private const int DIMENSION = 4;
         private readonly List<Button> _buttons;
 
         public Dialog()
@@ -20,19 +21,19 @@ namespace mattt.portal
 
             uxReset.Click += uxReset_Click;
 
-            PlayingField.Columns = DIMENSION;
+            PlayingField.Columns = Configuration.Instance.Dimension;
             _buttons = new List<Button>();
 
-            for (int i = 0; i < DIMENSION*DIMENSION; i++)
+            for (int i = 0; i < Configuration.Instance.Dimension * Configuration.Instance.Dimension; i++)
             {
-                var button = new Button {Tag = i};
+                var button = new Button { Tag = i };
                 button.Click += ButtonClicked;
                 _buttons.Add(button);
                 PlayingField.Children.Add(button);
             }
         }
 
-        void uxReset_Click( object sender, RoutedEventArgs e )
+        void uxReset_Click(object sender, RoutedEventArgs e)
         {
             ResetRequest();
         }
@@ -56,11 +57,11 @@ namespace mattt.portal
         public void Diaplay(GameState gameState)
         {
             uxStatus.Text = gameState.Status;
-            for (int y = 0; y < DIMENSION; y++)
+            for (int y = 0; y < Configuration.Instance.Dimension; y++)
             {
-                for (int x = 0; x < DIMENSION; x++)
+                for (int x = 0; x < Configuration.Instance.Dimension; x++)
                 {
-                    _buttons[x + y * DIMENSION].Content = gameState.Board[x, y];
+                    _buttons[x + y * Configuration.Instance.Dimension].Content = gameState.Board[x, y];
                 }
             }
         }

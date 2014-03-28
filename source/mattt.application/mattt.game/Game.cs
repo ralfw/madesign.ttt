@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using matt.contract;
 
 namespace mattt.game
 {
     public class Game
     {
-        private const int DIMENSION = 4;
-        private const int WIN_DIMENSION = 4;
-        private const int WINNING_SPACE = DIMENSION - WIN_DIMENSION;
-
         public void Check_for_end_of_game(int[] moves, Action<string> onGameOver, Action onContinueGame)
         {
             var moveTuple = Add_players_to_moves(moves);
             var x = (from tuple in moveTuple where tuple.Item2 == 'X' select tuple.Item1).OrderBy(item => item).ToList();
             var o = (from tuple in moveTuple where tuple.Item2 == 'O' select tuple.Item1).OrderBy(item => item).ToList();
 
-            if (moves.Count() < WIN_DIMENSION * 2 - 1)
+            if (moves.Count() < Configuration.Instance.WinDimension * 2 - 1)
             {
                 onContinueGame();
             }
@@ -33,7 +30,7 @@ namespace mattt.game
                     onGameOver("O hat gewonnen.");
                 }
                 // else check for remis
-                else if (moves.Count() == DIMENSION * DIMENSION)
+                else if (moves.Count() == Configuration.Instance.Dimension * Configuration.Instance.Dimension)
                 {
                     onGameOver("Remis.");
                 }
@@ -76,13 +73,13 @@ namespace mattt.game
             foreach (var move in movesOfPlayer)
             {
                 // check vertical win
-                if (move < (WIN_DIMENSION + 1) * DIMENSION)
+                if (move < (Configuration.Instance.WinDimension + 1) * Configuration.Instance.Dimension)
                 {
                     // check for further possible win places
                     var foundVerticalWin = true;
-                    for (var i = 0; i < (WIN_DIMENSION - 1); i++)
+                    for (var i = 0; i < (Configuration.Instance.WinDimension - 1); i++)
                     {
-                        if (!movesOfPlayer.Contains(move + DIMENSION * (i + 1)))
+                        if (!movesOfPlayer.Contains(move + Configuration.Instance.Dimension * (i + 1)))
                         {
                             foundVerticalWin = false;
                             break;
@@ -94,10 +91,10 @@ namespace mattt.game
                     }
                 }
                 // check horizontal win
-                if (move % DIMENSION <= WINNING_SPACE)
+                if (move % Configuration.Instance.Dimension <= Configuration.Instance.WinningSpace)
                 {
                     var foundHorizontalWin = true;
-                    for (int i = 0; i < (WIN_DIMENSION - 1); i++)
+                    for (int i = 0; i < (Configuration.Instance.WinDimension - 1); i++)
                     {
                         if (!movesOfPlayer.Contains(move + (i + 1)))
                         {
@@ -113,17 +110,17 @@ namespace mattt.game
                 // check diagonal win
                 var offset = new Offset
                 {
-                    X = move % DIMENSION,
-                    Y = move / DIMENSION
+                    X = move % Configuration.Instance.Dimension,
+                    Y = move / Configuration.Instance.Dimension
                 };
 
                 // check left down
-                if (offset.X > WINNING_SPACE && offset.Y <= WINNING_SPACE)
+                if (offset.X > Configuration.Instance.WinningSpace && offset.Y <= Configuration.Instance.WinningSpace)
                 {
                     var foundDiagonalWin = true;
-                    for (int i = 0; i < WIN_DIMENSION - 1; i++)
+                    for (int i = 0; i < Configuration.Instance.WinDimension - 1; i++)
                     {
-                        if (!movesOfPlayer.Contains(move + (DIMENSION - 1) * (i + 1)))
+                        if (!movesOfPlayer.Contains(move + (Configuration.Instance.Dimension - 1) * (i + 1)))
                         {
                             foundDiagonalWin = false;
                             break;
@@ -135,12 +132,12 @@ namespace mattt.game
                     }
                 }
                 // check right down
-                if (offset.X <= WINNING_SPACE && offset.Y <= WINNING_SPACE)
+                if (offset.X <= Configuration.Instance.WinningSpace && offset.Y <= Configuration.Instance.WinningSpace)
                 {
                     var foundDiagonalWin = true;
-                    for (int i = 0; i < WIN_DIMENSION - 1; i++)
+                    for (int i = 0; i < Configuration.Instance.WinDimension - 1; i++)
                     {
-                        if (!movesOfPlayer.Contains(move + (DIMENSION + 1) * (i + 1)))
+                        if (!movesOfPlayer.Contains(move + (Configuration.Instance.Dimension + 1) * (i + 1)))
                         {
                             foundDiagonalWin = false;
                             break;
