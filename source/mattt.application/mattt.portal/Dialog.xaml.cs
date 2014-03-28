@@ -36,6 +36,10 @@ namespace mattt.portal
         void uxReset_Click(object sender, RoutedEventArgs e)
         {
             ResetRequest();
+            foreach (var button in _buttons)
+            {
+                button.IsEnabled = true;
+            }
         }
 
         void ButtonClicked(object sender, RoutedEventArgs e)
@@ -54,14 +58,24 @@ namespace mattt.portal
             MoveRequest(i);
         }
 
-        public void Diaplay(GameState gameState)
+        public void Display(GameState gameState)
         {
             uxStatus.Text = gameState.Status;
+
             for (int y = 0; y < Configuration.Instance.Dimension; y++)
             {
                 for (int x = 0; x < Configuration.Instance.Dimension; x++)
                 {
                     _buttons[x + y * Configuration.Instance.Dimension].Content = gameState.Board[x, y];
+                }
+            }
+
+            if (gameState.Status.Contains("gewonnen"))
+            {
+                // someone won
+                foreach (var button in _buttons)
+                {
+                    button.IsEnabled = false;
                 }
             }
         }

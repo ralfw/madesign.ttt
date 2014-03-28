@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using mattt.game;
 using mattt.mapping;
 using mattt.moves;
@@ -29,7 +23,7 @@ namespace mattt.application
             // Bind
             ui.ResetRequest += interactions.New_game;
             ui.MoveRequest += interactions.Move;
-            interactions.OnGameChanged += ui.Diaplay;
+            interactions.OnGameChanged += ui.Display;
 
             // Run
             interactions.Start();

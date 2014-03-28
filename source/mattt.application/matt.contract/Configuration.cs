@@ -12,7 +12,7 @@
         private Configuration()
         {
             Dimension = DIMENSION;
-            WinDimension = WinDimension;
+            WinDimension = WIN_DIMENSION;
             WinningSpace = WINNING_SPACE;
         }
 
