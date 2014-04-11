@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 using matt.contract;
 
 namespace mattt.game
@@ -59,14 +60,14 @@ namespace mattt.game
                     {
                         moves[i] = moves[i] + Configuration.Instance.Dimension;
                         onUpdateUi(moves, "Gravität schlägt zu.");
-                        //TODO: use threads to sleep here and update UI ("to animate drop").
+                        //sleep here and update UI ("to animate drop").
+                        Thread.Sleep(50);
                     }
                     else
                     {
                         break;
                     }
                     indexOfOneLower = moves[i] + Configuration.Instance.Dimension;
-                    
                 }
             }
         }

@@ -36,10 +36,7 @@ namespace mattt.portal
         void uxReset_Click(object sender, RoutedEventArgs e)
         {
             ResetRequest();
-            foreach (var button in _buttons)
-            {
-                button.IsEnabled = true;
-            }
+            SetActive(true);
         }
 
         void ButtonClicked(object sender, RoutedEventArgs e)
@@ -73,10 +70,20 @@ namespace mattt.portal
             if (gameState.Status.Contains("gewonnen"))
             {
                 // someone won
-                foreach (var button in _buttons)
-                {
-                    button.IsEnabled = false;
-                }
+                SetActive(false);
+            }
+            else if (gameState.Status.Contains("ist dran"))
+            {
+                SetActive(true);
+            }
+            InvalidateVisual();
+        }
+
+        public void SetActive(bool isActive)
+        {
+            foreach (var button in _buttons)
+            {
+                button.IsEnabled = isActive;
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
 using mattt.game;
 using mattt.mapping;
 using mattt.moves;
@@ -23,7 +25,8 @@ namespace mattt.application
             // Bind
             ui.ResetRequest += interactions.New_game;
             ui.MoveRequest += interactions.Move;
-            interactions.OnGameChanged += ui.Display;
+            interactions.OnGameChanged += gamestate => Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Action)(() => ui.Display(gamestate)));
+            interactions.SetActive += ui.SetActive;
 
             // Run
             interactions.Start();

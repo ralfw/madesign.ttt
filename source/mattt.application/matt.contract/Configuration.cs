@@ -5,7 +5,7 @@
         private const int DIMENSION = 10;
         private const int WIN_DIMENSION = 5;
         private const int WINNING_SPACE = DIMENSION - WIN_DIMENSION;
-        private const bool IS_GRAVITY_ON = false;
+        private const bool IS_GRAVITY_ON = true;
 
         private static Configuration _configuration;
 

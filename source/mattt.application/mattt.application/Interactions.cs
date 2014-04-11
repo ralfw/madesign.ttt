@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using mattt.data;
 using mattt.game;
 using mattt.mapping;
@@ -36,17 +37,33 @@ namespace mattt.application
 
         public void Move(int coordinate)
         {
-            _moves.Add(coordinate, 
-                rawMoves => _game.Check_for_end_of_game(
-                    rawMoves,
-                    endOfGameStatus => Determine_game_state(_moves.RawMoves, endOfGameStatus),
-                    () => {
-                        var status = _game.Change_player(_moves.RawMoves);
-                        Determine_game_state(_moves.RawMoves, status);
-                    },
-                    (newMoves, text) => UpdateUi(newMoves, text)
-                ),
-                errorStatus => Determine_game_state(_moves.RawMoves, errorStatus));
+            var worker = new Thread(() =>
+            {
+                // TODO: do something
+                _moves.Add(coordinate,
+                    // onSuccess
+                    rawMoves => _game.Check_for_end_of_game(
+                        // moves to calclutae with
+                        rawMoves,
+                        // onGameOver
+                        endOfGameStatus => Determine_game_state(_moves.RawMoves, endOfGameStatus),
+                        // onContinueGame
+                        () =>
+                        {
+                            var status = _game.Change_player(_moves.RawMoves);
+                            Determine_game_state(_moves.RawMoves, status);
+                        },
+                        // onUpdateUi
+                        (newMoves, text) => UpdateUi(newMoves, text)
+                    ),
+                    // onError
+                    errorStatus => Determine_game_state(_moves.RawMoves, errorStatus));
+            });
+            
+            worker.Start();
+            
+            // disable ui
+            SetActive(false);
         }
 
 
@@ -66,5 +83,6 @@ namespace mattt.application
         }
 
         public event Action<GameState> OnGameChanged;
+        public event Action<bool> SetActive;
     }
 }
